@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challan Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 10px;
+            width: 700px;
+            height: 800px;
+            /* A4 width in pixels */
+        }
+
+        /* .bank_container {
+        width: 600px;
+        height: 100%;
+        margin: 0 auto;
+        border: 1px solid black;
+        padding: 20px;
+        }
+
+        .college_container {
+        width: 600px;
+        height: 100%;
+        margin: 0 auto;
+        border: 1px solid black;
+        padding: 20px;
+        } */
+
+        .bank_container,
+        .college_container,
+        .student_container {
+            width: 600px;
+            height: 100%;
+            margin: 0 auto;
+            border: 1px solid black;
+            padding: 20px;
+            /* margin-bottom: 400px; */
+        }
+
+        .main-container {
+            display: flex;
+            align-items: start;
+            justify-content: start;
+            gap: 10px;
+            padding: 20px;
+        }
+
+
+        .header,
+        .footer {
+            text-align: center;
+        }
+
+        table {
+            width: 400px;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .right-align {
+            text-align: right;
+        }
+
+        .center-align {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <% challans.forEach(function(challan,index) { %>
+        <div class="main-container">
+            <!-- Bank copy -->
+            <div class="bank_container">
+                <div class="header">
+                    <h2>
+                        <%= org_name %>
+                    </h2>
+                    <p>
+                        <%= org_address %><br>
+                            <%= org_location %>
+                    </p>
+                    <p>Contact No: <%= org_contact_no %><br>Email: <%= org_email %>
+                    </p>
+                    <p>C A/C. No: <%= account_no %> &nbsp;&nbsp; IFSC Code: <%= ifsc_code %>
+                    </p>
+                    <p>Remittance Challan</p>
+                </div>
+                <div class="right-align"><strong>BANK COPY</strong></div>
+                <table>
+                    <tr>
+                        <td>Challan No:</td>
+                        <td>
+                            <%= challan.challan_no %>
+                        </td>
+                        <td>Date:</td>
+                        <td>
+                            <%= challan.due_date %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Student Name:</td>
+                        <td>
+                            <%= student_detail.name_on_the_marksheet %>
+                        </td>
+                        <td>Branch:</td>
+                        <td>
+                            <%= department_detail.name %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>USN:</td>
+                        <td>
+                            <%= usno %>
+                        </td>
+                        <td>Batch:</td>
+                        <td>
+                            <%= aca_batch_detail.academic_batch_code %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Quota:</td>
+                        <td>
+                            <%= ad_quota_type_detail.admission_quota_type %>
+                        </td>
+                        <td>Sem:</td>
+                        <td>
+                            <%= semester_detail.semester %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Category:</td>
+                        <td>1G</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Particulars</th>
+                            <th class="right-align">Rs.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Installment [<%= index +1 %>]</td>
+                            <td class="right-align">INR <%= challan.installment_amount %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <%= fee_template_detail.template_name %>
+                            </td>
+                            <td class="right-align">
+                                <%= challan.installment_amount %>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2" class="right-align">GRAND TOTAL Rs.</th>
+                            <th class="right-align">
+                                <%= challan.installment_amount %>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <br>
+
+                <table>
+                    <tr>
+                        <td>Grand Total (in words):</td>
+                        <td colspan="3">
+                            <%= challan.amountInWord %> Rupees Only.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Remarks:</td>
+                        <td colspan="3">NIL</td>
+                    </tr>
+                </table>
+
+                <br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Notes</th>
+                            <th>Total Rs</th>
+                            <th>Paid by Cash/ DD/ Cheque</th>
+                            <th>No.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2000 X</td>
+                            <td></td>
+                            <td>Dated</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>500 X</td>
+                            <td></td>
+                            <td>Dated</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>200 X</td>
+                            <td></td>
+                            <td>Drawn on</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>100 X</td>
+                            <td></td>
+                            <td>Bank</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>50</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>10 X</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>5 X</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Total</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <br>
+
+                <table>
+                    <tr>
+                        <td>Total:</td>
+                        <td>Signature of Student:</td>
+                    </tr>
+                    <tr>
+                        <td>Received Rs. <%= challan.amountInWord %> by DD/PO and credited to <%= org_name %> A/c in
+                                    this Bank</td>
+                        <td>Bank Seal</td>
+                    </tr>
+                    <tr>
+                        <td>For Bank Use Only</td>
+                        <td>Scroll No.</td>
+                    </tr>
+                </table>
+
+                <div class="footer">
+                    <p>Bank Copy</p>
+                </div>
+            </div>
+
+            <!-- College copy -->
+            <div class="college_container">
+                <div class="header">
+                    <h2>
+                        <%= org_name %>
+                    </h2>
+                    <p>
+                        <%= org_address %><br>
+                            <%= org_location %>
+                    </p>
+                    <p>Contact No: <%= org_contact_no %><br>Email: <%= org_email %>
+                    </p>
+                    <p>C A/C. No: <%= account_no %> &nbsp;&nbsp; IFSC Code: <%= ifsc_code %>
+                    <p>Remittance Challan</p>
+                </div>
+
+                <div class="right-align"><strong>COLLEGE COPY</strong></div>
+
+                <table>
+                    <tr>
+                        <td>Challan No:</td>
+                        <td>
+                            <%= challan.challan_no %>
+                        </td>
+                        <td>Date:</td>
+                        <td>
+                            <%= challan.due_date %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Student Name:</td>
+                        <td>
+                            <%= student_detail.name_on_the_marksheet %>
+                        </td>
+                        <td>Branch:</td>
+                        <td>
+                            <%= department_detail.name %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>USN:</td>
+                        <td>
+                            <%= usno %>
+                        </td>
+                        <td>Batch:</td>
+                        <td>
+                            <%= aca_batch_detail.academic_batch_code %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Quota:</td>
+                        <td>
+                            <%= ad_quota_type_detail.admission_quota_type %>
+                        </td>
+                        <td>Sem:</td>
+                        <td>
+                            <%= semester_detail.semester %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Category:</td>
+                        <td>1G</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <br>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sl. No.</th>
+                            <th>Particulars</th>
+                            <th class="right-align">Rs.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Installment [<%= index +1 %>]</td>
+                            <td class="right-align">INR <%= challan.installment_amount %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <%= fee_template_detail.template_name %>
+                            </td>
+                            <td class="right-align">
+                                <%= challan.installment_amount %>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2" class="right-align">GRAND TOTAL Rs.</th>
+                            <th class="right-align">
+                                <%= challan.installment_amount %>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <br>
+
+                <table>
+                    <tr>
+                        <td>Grand Total (in words):</td>
+                        <td colspan="3">
+                            <%= challan.amountInWord %> Rupees Only.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Remarks:</td>
+                        <td colspan="3">NIL</td>
+                    </tr>
+                </table>
+
+                <br>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Paid by Cash/ DD/ Cheque No.</th>
+                            <th></th>
+                            <th>Dated</th>
+                            <th>Drawn on</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <table style="margin-top: 250px;">
+                    <tr>
+                        <td>Signature of Student:</td>
+                    </tr>
+                    <tr>
+                        <td>For Bank Use Only</td>
+                        <td>Scroll No.</td>
+                    </tr>
+                    <tr>
+                        <td>Received Rs. <%= challan.installment_amount %> by DD/PO and credited to <%= org_name %> A/c
+                                    in
+                                    this Bank</td>
+                        <td>Bank Seal</td>
+                    </tr>
+                </table>
+
+                <div class="footer">
+                    <p>College Copy</p>
+                </div>
+            </div>
+
+            <!-- Student copy -->
+            <div class="student_container">
+                <div class="header">
+                    <h2>
+                        <%= org_name %>
+                    </h2>
+                    <p>
+                        <%= org_address %><br>
+                            <%= org_location %>
+                    </p>
+                    <p>Contact No: <%= org_contact_no %><br>Email: <%= org_email %>
+                    </p>
+                    <p>C A/C. No: <%= account_no %> &nbsp;&nbsp; IFSC Code: <%= ifsc_code %>
+                    <p>Remittance Challan</p>
+                </div>
+
+                <div class="right-align"><strong>STUDENT COPY</strong></div>
+
+                <table>
+                    <tr>
+                        <td>Challan No:</td>
+                        <td>
+                            <%= challan.challan_no %>
+                        </td>
+                        <td>Date:</td>
+                        <td>
+                            <%= challan.due_date %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Student Name:</td>
+                        <td>
+                            <%= student_detail.name_on_the_marksheet %>
+                        </td>
+                        <td>Branch:</td>
+                        <td>
+                            <%= department_detail.name %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>USN:</td>
+                        <td>
+                            <%= usno %>
+                        </td>
+                        <td>Batch:</td>
+                        <td>
+                            <%= aca_batch_detail.academic_batch_code %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Quota:</td>
+                        <td>
+                            <%= ad_quota_type_detail.admission_quota_type %>
+                        </td>
+                        <td>Sem:</td>
+                        <td>
+                            <%= semester_detail.semester %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Category:</td>
+                        <td>1G</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <br>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sl. No.</th>
+                            <th>Particulars</th>
+                            <th class="right-align">Rs.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Installment [<%= index +1 %>]</td>
+                            <td class="right-align">INR <%= challan.installment_amount %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <%= fee_template_detail.template_name %>
+                            </td>
+                            <td class="right-align">
+                                <%= challan.installment_amount %>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2" class="right-align">GRAND TOTAL Rs.</th>
+                            <th class="right-align">
+                                <%= challan.installment_amount %>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <br>
+
+                <table>
+                    <tr>
+                        <td>Grand Total (in words):</td>
+                        <td colspan="3">
+                            <%= challan.amountInWord %> Rupees Only.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Remarks:</td>
+                        <td colspan="3">NIL</td>
+                    </tr>
+                </table>
+
+                <br>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Paid by Cash/ DD/ Cheque No.</th>
+                            <th></th>
+                            <th>Dated</th>
+                            <th>Drawn on</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <table style="margin-top: 250px;">
+                    <tr>
+                        <td>Signature of Student:</td>
+                    </tr>
+                    <tr>
+                        <td>For Bank Use Only</td>
+                        <td>Scroll No.</td>
+                    </tr>
+                    <tr>
+                        <td>Received Rs. <%= challan.amountInWord %> by DD/PO and credited to <%= org_name %> A/c in
+                                    this Bank</td>
+                        <td>Bank Seal</td>
+                    </tr>
+                </table>
+
+                <div class="footer">
+                    <p>Student Copy</p>
+                </div>
+            </div>
+        </div>
+        <div style="page-break-before: always; page-break-inside: avoid;"></div>
+        <% }); %>
+</body>
+
+</html>

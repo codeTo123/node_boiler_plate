@@ -1,0 +1,20 @@
+# Ignore node_modules folder
+node_modules
+
+# Build files
+dist
+
+# Ignore logs folder
+logs
+
+# Ignore files related to API keys
+.env
+
+# Ignore vscode folder
+.vscode
+
+# Ignore Package-lock.json
+package-lock.json
+
+# Ignore sequelize-data.json
+sequelize-data.json
